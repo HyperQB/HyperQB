@@ -3,9 +3,9 @@
 ### Parameters
 SINGLE_PARSER=exec/single_model_parser.py
 
-# MULTI_PARSER=exec/multi_model_parser.py
+MULTI_PARSER=exec/multi_model_parser.py
 # MULTI_PARSER=exec/multi_model_parser
-MULTI_PARSER=exec/output/multi_model_parser
+# MULTI_PARSER=exec/output/multi_model_parser
 
 # HyperQube subTools
 GENQBF=exec/genqbf
@@ -120,16 +120,11 @@ then
   S=S.bool
   P=P.bool
   ### using python scripts
-  # python3 ${MULTI_PARSER} ${M1_NUSMVFILE} ${I} ${R} ${M2_NUSMVFILE} ${J} ${S} ${FORMULA}  ${P} ${FLAG}
+  python3 ${MULTI_PARSER} ${M1_NUSMVFILE} ${I} ${R} ${M2_NUSMVFILE} ${J} ${S} ${FORMULA}  ${P} ${FLAG}
   ### using docker
   # docker run -v ${PWD}:/mnt tzuhanmsu/hyperqube:latest /bin/bash -c "cd mnt/; python3 ${MULTI_PARSER} ${M1_NUSMVFILE} ${I} ${R} ${M2_NUSMVFILE} ${J} ${S} ${FORMULA}  ${P} ${FLAG}; "
   ### using executable
   # sudo ./${MULTI_PARSER} ${M1_NUSMVFILE} ${I} ${R} ${M2_NUSMVFILE} ${J} ${S} ${FORMULA}  ${P} ${FLAG}
-
-
-  cd exec
-  ./output/multi_model_parser/multi_model_parser ${M1_NUSMVFILE} ${I} ${R} ${M2_NUSMVFILE} ${J} ${S} ${FORMULA}  ${P} ${FLAG}
-  cd ..
 
 else
   echo "HyperQube error: please specify mode: -single | -multi \n"
