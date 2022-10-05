@@ -1,0 +1,30 @@
+(1. Model:)
+[s0: a,b] --> [s1: a,~b] --> [s2: ~a,~b]
+
+(2. Boolean transitions:)
+(s0: a /\ b) -> (s1: a' /\ ~b' )
+(s1: a /\ ~b) -> (s2: ~a' /\ ~b')
+(s2: ~a /\ ~b) -> (s2: ~a' /\ ~b')
+
+(3. genQbf)
+bound k = 3
+
+(s0: a[0] /\ b[0]) /\ (s1: a[1] /\ ~b[1] ) /\ (s2: ~a[2] /\ ~b[2]) /\ (s2: ~a[3] /\ ~b[3])
+
+
+
+
+
+(((~high/\~low/\(~PC_2/\PC_1/\PC_0)/\~halt)) -> ((~high'/\~low'/\(PC_2'/\~PC_1'/\PC_0')/\~halt')))/\
+(((~high/\~low/\(PC_2/\~PC_1/\PC_0)/\~halt)) -> ((~high'/\~low'/\(PC_2'/\PC_1'/\~PC_0')/\~halt')))/\
+(((~high/\~low/\(~PC_2/\PC_1/\~PC_0)/\~halt)) -> ((~high'/\~low'/\(~PC_2'/\PC_1'/\PC_0')/\~halt')))/\
+(((~high/\~low/\(PC_2/\PC_1/\~PC_0)/\halt)) -> ((~high'/\~low'/\(PC_2'/\PC_1'/\~PC_0')/\halt')))/\
+(((~high/\~low/\(PC_2/\PC_1/\~PC_0)/\~halt)) -> ((~high'/\~low'/\(PC_2'/\PC_1'/\~PC_0')/\halt')))/\
+(((~high/\~low/\(~PC_2/\~PC_1/\PC_0)/\~halt)) -> (((high'/\~low'/\(~PC_2'/\PC_1'/\~PC_0')/\~halt')\/(~high'/\~low'/\(~PC_2'/\PC_1'/\~PC_0')/\~halt'))))/\
+(((high/\~low/\(~PC_2/\PC_1/\PC_0)/\~halt)) -> ((high'/\~low'/\(PC_2'/\~PC_1'/\~PC_0')/\~halt')))/\
+(((high/\~low/\(PC_2/\~PC_1/\~PC_0)/\~halt)) -> ((high'/\low'/\(PC_2'/\~PC_1'/\PC_0')/\~halt')))/\
+(((high/\~low/\(~PC_2/\PC_1/\~PC_0)/\~halt)) -> ((high'/\~low'/\(~PC_2'/\PC_1'/\PC_0')/\~halt')))/\
+(((high/\low/\(PC_2/\~PC_1/\PC_0)/\~halt)) -> ((high'/\low'/\(PC_2'/\PC_1'/\~PC_0')/\~halt')))/\
+(((high/\low/\(PC_2/\PC_1/\~PC_0)/\~halt)) -> ((high'/\low'/\(PC_2'/\PC_1'/\~PC_0')/\halt')))/\
+(((high/\low/\(PC_2/\PC_1/\~PC_0)/\halt)) -> ((high'/\low'/\(PC_2'/\PC_1'/\~PC_0')/\halt')))/\
+TRUE
