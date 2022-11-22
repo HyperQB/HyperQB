@@ -57,6 +57,25 @@ int main(int argc, char** argv) {
 
 	fstream  mini_I;
 	mini_I.open(I_file, ios::in);
+	
+	while(!mini_I.eof()){
+                     
+             string added;
+                     
+             mini_I >> added;
+             I += added;
+             I += " ";  
+                     
+                     }
+
+   I = I.substr(0, I.size()-1);
+	
+	
+	
+	
+	
+	
+	
 
 	for (int i = 0; i < bit; i++) {
 
@@ -86,7 +105,7 @@ int main(int argc, char** argv) {
 
 	}
 
-	mini_I >> I;
+//	mini_I >> I;
 
 
 	char* I_str = &I[0];
@@ -114,9 +133,11 @@ int main(int argc, char** argv) {
          
          if (new_I[positions[i]+counter-1] != ')'){
             new_I.insert(positions[i]+counter, added_str);
+            
+            counter += added_l;
             }
             
-         counter += added_l;
+         
         
         }
         
@@ -135,9 +156,11 @@ int main(int argc, char** argv) {
          
          if (new_I[positions[i]+counter-1] != ')'){
             new_I.insert(positions[i]+counter, added_str);
+            
+            counter += added_l;
             }
             
-         counter += added_l;
+         
         
         }
 
@@ -155,11 +178,13 @@ int main(int argc, char** argv) {
          //cout<<positions[i];
          if (new_I[positions[i]+counter-1] != ')'){
             new_I.insert(positions[i]+counter, added_str);
+            
+            counter += added_l;
             }
-         counter += added_l;
+         
         
         }
- 
+        
 
  //cout<<new_I;      
  
@@ -167,11 +192,11 @@ int main(int argc, char** argv) {
 
 
     
-	ad_I += new_I;
+//	ad_I += new_I;
 
 	
 	
-    cout<<"This is Unrolled I:\n"<<ad_I;	
+    cout<<"This is Unrolled I:\n"<<new_I;	
 
 
 
