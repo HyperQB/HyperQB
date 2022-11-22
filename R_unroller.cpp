@@ -38,7 +38,7 @@ int main(int argc, char** argv) {
 
 	//step1: unrolling the model
 
-	//Unrolling the inital condition
+	
 
 
     
@@ -59,13 +59,32 @@ int main(int argc, char** argv) {
 
 	fstream  mini_R;
 	mini_R.open(R_file);
-
-	mini_R >> R;
 	
-//	cout<<R;
+	
+
+//	mini_R >> R;
 
 
-	char* R_str = &R[0];
+while(!mini_R.eof()){
+                     
+             string added;
+                     
+             mini_R >> added;
+             R += added;
+             R += " ";  
+                     
+                     }
+//R -= " ";
+//R.pop_back();
+R = R.substr(0, R.size()-1);
+	
+cout<<R<<"\n";
+
+char* R_str = &R[0];
+string new_R = R_str;
+
+
+//	char* R_str = &R[0];
 	char added_str[6] = { '_','A','_','[','0',']' };
 	
 	vector<string> added_strs;
@@ -84,146 +103,196 @@ int main(int argc, char** argv) {
         
         }
         
- //   for (int i = 0; i<k; i++){
-        
- //       cout<<added_strs[i]<<"\n";
-        
-  //      }
-        
         
         
         
 	
 	int added_l = end(added_str)-begin(added_str);
 	
-	string new_R = R_str;
-	
+//	string new_R = R_str;
+
+    	
 	string final_R;
+	
 	
 
 	
 //	int len = new_I.length();
 
+   string sub_str;
+   vector<int> positions;
+   int counter;
+   int i;
+   
+   
+   
+   sub_str = ")";
+               
+               positions = substrPosition(new_R, sub_str);
+            
+             
+               counter = 0;
+               
+               
+  
+    
+    for (int t = 0; t<k-1; t++){ 
+           
 
-   for (int t = 0; t<k-1; t++){ 
-	
+     
+               sub_str = "/\\";
+               
+               positions = substrPosition(new_R, sub_str);
+            
+             
+               counter = 0;
+             
+               for (int i = 0; i<positions.size(); i++){
+                    
+                     //cout<<positions[i];
+                     
+                     if (new_R[positions[i]+counter-1] != ')'){
+                         if (new_R[positions[i]+counter-1] == '\''){
+                        
+                        new_R.insert(positions[i]+counter, added_strs[t+1]);
+                        }
+                        else{
+                             new_R.insert(positions[i]+counter, added_strs[t]);
+                             }
+                             counter += added_l;
+                        }
+                        
+                     
+                    
+                    }
+                    
+       //        cout<<positions.size()<<"\n";
+               
+               sub_str = "\\/";
+               
+               positions = substrPosition(new_R, sub_str);
+            
+             
+               counter = 0;
+             
+               for (int i = 0; i<positions.size(); i++){
+                    
+                     //cout<<positions[i];
+                     
+                     if (new_R[positions[i]+counter-1] != ')'){
+                         if (new_R[positions[i]+counter-1] == '\''){
+                        
+                        new_R.insert(positions[i]+counter, added_strs[t+1]);
+                        }
+                        else{
+                             new_R.insert(positions[i]+counter, added_strs[t]);
+                             }
+                             counter += added_l;
+                             }
+                             
+                        
+                        }
+            
+      //       cout<<positions.size()<<"\n";
+                    
+               sub_str = ")";
+               
+               positions = substrPosition(new_R, sub_str);
+            
+             
+               counter = 0;
+               
+               
+                  
+//The problem is something with positions )) at the end of the string             
+               for (int i = 0; i<positions.size(); i++){
+                    
+ //                    cout<<positions[i]<<endl;
+                     if (new_R[positions[i]+counter-1] != ')'){
+                         if (new_R[positions[i]+counter-1] == '\''){
+                        
+                        new_R.insert(positions[i]+counter, added_strs[t+1]);
+                        }
+    
+                        else{
+                             
+                        
+                                 new_R.insert(positions[i]+counter, added_strs[t]);
+                             }
+                             counter += added_l;
+                            }
+                        
+                        }
+                        
+                        
+ //              sub_str = " -> ";
+  
+//               cout<<positions.size()<<"\n";
+               
+  //             positions = substrPosition(new_R, sub_str);
+            
+             
+  //             counter = 0;
+             
+   //            for (int i = 0; i<positions.size(); i++){
+                    
+                     //cout<<positions[i];
+  //                   if (new_R[positions[i]+counter-1] != ')'){
+  //                       if (new_R[positions[i]+counter-1] == '\''){
+                        
+  //                      new_R.insert(positions[i]+counter, added_strs[t+1]);
+  //                      }
+   //                     else{
+  //                           new_R.insert(positions[i]+counter, added_strs[t]);
+  //                           }
+ //                          counter += added_l;  
+ //                            }
+  //                      
+                        
+  //                      }
+                    
+               
+               
+//               sub_str = " ";
+               
+//               positions = substrPosition(new_R, sub_str);
+            
+             
+ //              counter = 0;
+             
+  //             for (int i = 0; i<positions.size(); i++){
+                    
+                     //cout<<positions[i];
+  //                   if (new_R[positions[i]+counter-1] != ')'){
+  //                       if (new_R[positions[i]+counter-1] == '\''){
+                        
+ //                       new_R.insert(positions[i]+counter, added_strs[t+1]);
+  //                      }
+ //                       else{
+ //                            new_R.insert(positions[i]+counter, added_strs[t]);
+ //                            }
+  //                           counter += added_l;
+ //                            }
+ //                       
+                        
+ //                       }
+                        
+                
+                        
+       final_R += new_R; 
+       new_R = R_str;
+                    
+       if (t != k-2){
+         final_R += "/\\";
+         }
  
-       string sub_str = "/\\";
-       
-       vector<int> positions = substrPosition(new_R, sub_str);
-    
+ 
      
-       int counter = 0;
-     
-       for (int i = 0; i<positions.size(); i++){
-            
-             //cout<<positions[i];
-             
-             if (new_R[positions[i]+counter-1] != ')'){
-                 if (new_R[positions[i]+counter-1] == '\''){
-                
-                new_R.insert(positions[i]+counter, added_strs[t+1]);
-                }
-                else{
-                     new_R.insert(positions[i]+counter, added_strs[t]);
-                     }
-                }
-                
-             counter += added_l;
-            
-            }
-            
-       
-       
-       sub_str = "\\/";
-       
-       positions = substrPosition(new_R, sub_str);
-    
-     
-       counter = 0;
-     
-       for (int i = 0; i<positions.size(); i++){
-            
-             //cout<<positions[i];
-             
-             if (new_R[positions[i]+counter-1] != ')'){
-                 if (new_R[positions[i]+counter-1] == '\''){
-                
-                new_R.insert(positions[i]+counter, added_strs[t+1]);
-                }
-                else{
-                     new_R.insert(positions[i]+counter, added_strs[t]);
-                     }
-                     }
-                     
-                counter += added_l;
-                }
-    
-     
-            
-       sub_str = ")";
-       
-       positions = substrPosition(new_R, sub_str);
-    
-     
-       counter = 0;
-     
-       for (int i = 0; i<positions.size(); i++){
-            
-             //cout<<positions[i];
-             if (new_R[positions[i]+counter-1] != ')'){
-                 if (new_R[positions[i]+counter-1] == '\''){
-                
-                new_R.insert(positions[i]+counter, added_strs[t+1]);
-                }
-                else{
-                     new_R.insert(positions[i]+counter, added_strs[t]);
-                     }
-                     
-                     }
-                counter += added_l;
-                }
-                
-                
-       sub_str = " -> ";
-       
-       positions = substrPosition(new_R, sub_str);
-    
-     
-       counter = 0;
-     
-       for (int i = 0; i<positions.size(); i++){
-            
-             //cout<<positions[i];
-             if (new_R[positions[i]+counter-1] != ')'){
-                 if (new_R[positions[i]+counter-1] == '\''){
-                
-                new_R.insert(positions[i]+counter, added_strs[t+1]);
-                }
-                else{
-                     new_R.insert(positions[i]+counter, added_strs[t]);
-                     }
-                     
-                     }
-                counter += added_l;
-                }
-                
-                
-     
-    
-     //cout<<new_I; 
-     
-      
-     final_R += new_R;
-     
-     if (t != k-2){
-     final_R += "/\\";
      }
-     
-     new_R = R_str;    
- 
- 
-    }
+        
+        
+        
+        
 
     
 //	ad_R += new_R;
