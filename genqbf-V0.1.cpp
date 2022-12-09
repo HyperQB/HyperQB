@@ -36,6 +36,163 @@ vector<int> substrPosition(string str, string sub_str) {
 
 
 
+
+
+//The function for until unroller
+
+string until_unroller(string modelA, string modelB, int k, vector<string> added_strs_A, vector<string> added_strs_B){
+       
+       
+       
+       string final_return;
+       
+       string new_A = modelA;
+       string new_B = modelB;
+       string paranthesis;
+       
+       for (int i = 0; i < k+1; i++){
+           
+           
+           
+           new_B.insert(new_B.length(), added_strs_B[i]);
+           new_A.insert(new_A.length(), added_strs_A[i]);
+           
+           
+           if (i<k-1){
+           
+           final_return += new_B;
+           final_return += "\\/";
+           final_return += "(";
+           final_return += new_A;
+           final_return += "/\\";
+           final_return += "(";
+           
+           paranthesis += "))";
+           
+           
+           
+           
+           
+           }
+           
+           else if (i==k-1){
+                
+                final_return += new_B;
+                final_return += "\\/";
+                
+                final_return += new_A;
+                final_return += "/\\";
+                
+                
+                }
+           
+           else if (i==k){
+
+                
+                
+                final_return += new_B;
+                final_return += paranthesis;
+                
+                }
+                
+           new_A = modelA;
+           new_B = modelB;
+             
+           
+           
+           }
+           
+       
+       return final_return;
+       
+       
+       }
+
+
+
+
+
+
+
+
+
+
+//The function for release unroller
+
+string release_unroller(string modelA, string modelB, int k, vector<string> added_strs_A, vector<string> added_strs_B){
+       
+       
+       
+       string final_return;
+       
+       string new_A = modelA;
+       string new_B = modelB;
+       string paranthesis;
+       
+       for (int i = 0; i < k+1; i++){
+           
+           
+           
+           new_B.insert(new_B.length(), added_strs_B[i]);
+           new_A.insert(new_A.length(), added_strs_A[i]);
+           
+           
+           if (i<k-1){
+           
+           final_return += new_B;
+           final_return += "/\\";
+           final_return += "(";
+           final_return += new_A;
+           final_return += "\\/";
+           final_return += "(";
+           
+           paranthesis += "))";
+           
+           
+           
+           
+           
+           }
+           
+           else if (i==k-1){
+                
+                
+                
+           final_return += new_B;
+           final_return += "/\\";
+           
+           final_return += new_A;
+           final_return += "\\/";
+           
+                
+                }
+           
+           else if (i==k){
+                
+                
+                final_return += new_B;
+                final_return += paranthesis;
+                
+                }
+                
+           new_A = modelA;
+           new_B = modelB;
+             
+           
+           
+           }
+           
+       
+       return final_return;
+       
+       
+       }
+
+
+
+
+
+
 //The function for unrolling initial conditions
 
 string I_unroller(int k, string I_file) {
@@ -1491,6 +1648,256 @@ string new_P = P_str;
     
 
    }
+   
+   
+   
+   
+   
+   
+        vector<int> positions_U;
+          sub_str = "]U";
+               
+          positions_U = substrPosition(new_P, sub_str);
+          
+          
+          
+          P_nextgen = "";
+          end_sign = "";
+          
+          if (positions_U.size()>0){
+                                    
+                                    
+               sub_str = "(";
+               
+               positions = substrPosition(new_P, sub_str);
+               
+               
+               
+               int minimum = new_P.length();
+               int positions_1;
+               
+               for (int i=0; i<positions.size(); i++){
+                   
+                   
+                  if ((positions_U[0] - positions[i])>0 && (positions_U[0] - positions[i])<minimum){
+                                      
+                                      
+                                      
+                                      minimum = positions_U[0] - positions[i];
+                                      
+                                      positions_1 = positions[i];
+                                      
+                                      
+                                      }
+             
+               
+               
+               }
+               
+               
+               
+               
+               string atom_A;
+               string atom_B;
+               
+               for (int i=positions_1+1; i<positions_U[0]+1; i++){
+                   
+                   
+                   atom_A += new_P[i];
+                   
+                   
+                   
+                   }
+            
+               
+                    
+              sub_str = ")";
+               
+               positions = substrPosition(new_P, sub_str);
+               
+               
+               
+               
+               
+               minimum = new_P.length();
+               int positions_2;
+               
+               for (int i=0; i<positions.size(); i++){
+                   
+                   
+                   
+                   
+                  if ((positions[i]-positions_U[0])>0 && (positions[i]-positions_U[0])<minimum){
+                                      
+                                      minimum = positions[i]-positions_U[0];
+                                      
+                                      
+                                      
+                                      positions_2 = positions[i];
+                                      
+                                      
+                                      }
+             
+               
+               
+               }
+               
+               
+               
+              
+               
+               for (int i=positions_U[0]+2; i<positions_2; i++){
+                   
+                   
+                   atom_B += new_P[i];
+                   
+                   
+                   
+                  }
+                   
+                   
+                   
+           //   cout<<atom_A<<endl;
+          //    cout<<atom_B<<endl;
+               
+               
+              string output_U =  until_unroller(atom_A, atom_B, k, added_strs_A, added_strs_B); 
+              
+          //    cout<<output_U<<endl;
+              
+              final_P += output_U;
+                  
+            
+   
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+      vector<int> positions_R;
+          sub_str = "]R";
+               
+          positions_R = substrPosition(new_P, sub_str);
+          
+          
+          
+          P_nextgen = "";
+          end_sign = "";
+          
+          if (positions_R.size()>0){
+                                    
+                                    
+               sub_str = "(";
+               
+               positions = substrPosition(new_P, sub_str);
+               
+               
+               
+               int minimum = new_P.length();
+               int positions_1;
+               
+               for (int i=0; i<positions.size(); i++){
+                   
+                   
+                  if ((positions_R[0] - positions[i])>0 && (positions_R[0] - positions[i])<minimum){
+                                      
+                                      
+                                      
+                                      minimum = positions_R[0] - positions[i];
+                                      
+                                      positions_1 = positions[i];
+                                      
+                                      
+                                      }
+             
+               
+               
+               }
+               
+               
+               
+               
+               string atom_A;
+               string atom_B;
+               
+               for (int i=positions_1+1; i<positions_R[0]+1; i++){
+                   
+                   
+                   atom_A += new_P[i];
+                   
+                   
+                   
+                   }
+            
+               
+                    
+              sub_str = ")";
+               
+               positions = substrPosition(new_P, sub_str);
+               
+               minimum = new_P.length();
+               int positions_2;
+               
+               for (int i=0; i<positions.size(); i++){
+                   
+                   
+                  if ((-positions_R[0]+positions[i])>0 && (-positions_R[0]+positions[i])<minimum){
+                                      
+                                      minimum = -positions_R[0]+positions[i];
+                                      
+                                      positions_2 = positions[i];
+                                      
+                                      
+                                      }
+             
+               
+               
+               }
+               
+               
+               
+               
+               
+               for (int i=positions_R[0]+2; i<positions_2; i++){
+                   
+                   
+                   atom_B += new_P[i];
+                   
+                   
+                   
+                  }
+                   
+                   
+                   
+          //    cout<<atom_A<<endl;
+          //    cout<<atom_B<<endl;
+               
+               
+              string output_R =  release_unroller(atom_A, atom_B, k, added_strs_A, added_strs_B); 
+              
+              final_P += output_R;
+                  
+            
+   
+            }
+            
+            
+            
+            
    
    
    
