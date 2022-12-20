@@ -1,0 +1,28 @@
+Arithmatic Comparator
+
+PC (program counter): 0, 1, 2, 3
+
+3 (11): PC_0 /\ PC_1
+2 (10): PC_0 /\ ~PC_1
+1 (01): ~PC_0 /\ PC_1
+0 (00): ~PC_0 /\ ~PC_1
+
+Example: *p1_line[A]=0*
+
+Because p1_line: 0..4, we need 3 bits
+
+0: ~p1_line_0[A] /\ ~p1_line_1[A] /\ ~p1_line_2[A]
+1: ~p1_line_0[A] /\ ~p1_line_1[A] /\ p1_line_2[A]
+2: ~p1_line_0[A] /\  p1_line_1[A] /\ ~p1_line_2[A]
+3: ~p1_line_0[A] /\  p1_line_1[A] /\ p1_line_2[A]
+4:  p1_line_0[A] /\  ~p1_line_1[A] /\ ~p1_line_2[A]
+
+
+*p1_line[A]=0*
+should become
+(~p1_line_0[A] /\ ~p1_line_1[A] /\ ~p1_line_2[A])
+
+
+*p1_line[B]=2*
+should become
+(~p1_line_0[B] /\ p1_line_1[B] /\ p1_line_2[B])
