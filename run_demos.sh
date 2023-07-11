@@ -17,3 +17,5 @@
 # ./hyperqb.sh demo/mini.smv demo/mini.smv demo/mini.hq 3 -pes
 # ./hyperqb.sh demo/mini.smv demo/mini.smv demo/mini.smv demo/mini.smv  demo/mini_try.hq 10 -pes -find
 # ./hyperqb.sh demo/mini.smv demo/mini.smv demo/mini.smv demo/mini.hq 3 -pes
+
+./hyperqb.sh demo/mini.smv demo/mini.smv demo/mini.smv demo/mini.hq 3 -pes

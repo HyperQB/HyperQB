@@ -1,1 +1,4 @@
-exists A. exists B. F(*PC[A] = PC[B]*)
+exists A. exists B.
+let a = (*PC[A] = 1*) in
+let b = (*PC[B] = 2*) in
+F(a/\b)
