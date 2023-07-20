@@ -219,12 +219,12 @@ let circuit_to_num_circuit (circ:str_circuit) (st:symbol_table) =
   trans circ
   
 (* TO_STR *)
-let get_name (c:str_circuit) : string =
+let rec get_name (c:str_circuit) : string =
   match c with
     True         -> "gtrue"
   | False        -> "gfalse"
   | Literal(t,_) -> t
-  | Let(t,_,_)   -> t
+  | Let(t,_,d)   -> get_name d
   | Or(t,_,_)    -> t
   | MOr(t,_)   -> t
   | And(t,_,_)   -> t
@@ -233,10 +233,12 @@ let get_name (c:str_circuit) : string =
   | Ite(t,_,_,_) -> t
     
 let circuit_to_str (c: str_circuit) : string =
+  let true_used = ref false in
+  let false_used = ref false in
   let rec to_str c =
     match c with
-      True  -> "and()\n"
-    | False -> "or()\n"
+      True  -> if !true_used then "" else begin true_used:=true  ; "gtrue =and()\n" end
+    | False -> if !false_used then "" else begin false_used:=true ; "gfalse=or()\n" end
     | Literal(s,_) -> ""
     | Let(s,cx,cy) -> sprintf "%s\n%s" (to_str cx) (to_str cy)
     | Or(s,cx,cy)  ->
@@ -319,32 +321,37 @@ let quantified_num_circuit_to_str (qc:quantified_str_circuit) : string =
 
 (* OUTPUT *)
 let rec fprint_circuit ch circ =
+  let true_used  = ref false in
+  let false_used = ref false in
+  let pr s = output_string ch s in
   let rec pr_circ circ =
     match circ with
-	True  -> output_string ch "and()\n"
-      | False -> output_string ch "or()\n"
+      True  -> if !true_used then () else
+                 begin true_used:=true  ; pr "gtrue =and()\n" end
+    | False -> if !false_used then () else
+                 begin false_used:=true ; pr "gfalse=or()\n" end
       | Literal(s,_) -> ()
       | Let(n,cx,cy) -> pr_circ cx ; pr_circ cy
       | Or(s,cx,cy)  ->
 	let me = sprintf "%s = or(%s,%s)\n" s (get_name cx) (get_name cy)in
-	pr_circ cx ; pr_circ cy ; output_string ch me 
+	pr_circ cx ; pr_circ cy ; pr me 
       | And(s,cx,cy)  ->
 	let me = sprintf "%s = and(%s,%s)\n" s (get_name cx) (get_name cy)in
-	pr_circ cx ; pr_circ cy ; output_string ch me 
+	pr_circ cx ; pr_circ cy ; pr me 
       | MOr(s,ls) ->
 	let args = String.concat "," (List.map get_name ls) in
 	let me = s ^ " = or(" ^ args ^ ")\n" in
-	List.iter (fun c -> pr_circ c) ls ; output_string ch me
+	List.iter (fun c -> pr_circ c) ls ; pr me
       | MAnd(s,ls) ->
 	let args = String.concat "," (List.map get_name ls) in
 	let me = s ^ " = and(" ^ args ^ ")\n" in
-	  List.iter (fun c -> pr_circ c) ls ; output_string ch me
+	  List.iter (fun c -> pr_circ c) ls ; pr me
       | Xor(s,cx,cy)  ->
 	let me = sprintf "%s = xor(%s,%s)\n" s (get_name cx) (get_name cy)in
-	pr_circ cx ; pr_circ cy ; output_string ch me 
+	pr_circ cx ; pr_circ cy ; pr me 
       | Ite(s,cx,cy,cz)  ->
 	let me = sprintf "%s = ite(%s,%s,%s)\n" s (get_name cx) (get_name cy)(get_name cz) in
-	pr_circ cx ; pr_circ cy ; pr_circ cz ; output_string ch me
+	pr_circ cx ; pr_circ cy ; pr_circ cz ; pr me
   in
   output_string ch (sprintf "output(%s)\n" (get_name circ)) ; pr_circ circ
 
