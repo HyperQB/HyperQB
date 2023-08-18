@@ -1,0 +1,4 @@
+forall A. exists B.
+(
+    ({action}_A = {action}_B)  U  ({NO_water}_B)
+)

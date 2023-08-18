@@ -185,7 +185,7 @@ echo "|  Formula:    " ${FORMULA}
 echo "|  Quantifiers:" ${QS}
 echo "|  QBF solving:" ${OUTCOME}
 echo "|  Semantics:  " ${SEM}
-echo "|  #states:    " ${TIME_PARSE}
+echo "|  size:       " ${TIME_PARSE}
 echo "|  Bound k:    " ${k}
 echo "|  Mode:       " ${FLAG}
 echo "----------------------------------------------------"

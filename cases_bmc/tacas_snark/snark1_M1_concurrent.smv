@@ -98,7 +98,7 @@ VAR
 
 
 
-		MODULE Queue(LeftHat, RightHat, AllNodes, proc1, proc2)
+MODULE Queue(LeftHat, RightHat, AllNodes, proc1, proc2)
 		-- CHANGING GLOBAL VARIABLEs
 
 		VAR

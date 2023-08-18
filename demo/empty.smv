@@ -1,12 +1,10 @@
 MODULE main
  VAR
-    a: boolean;
-    b: boolean;
+    a: boolean; 
  ASSIGN
     -- Initial Conditions
     init(a):= FALSE;
     init(b):= FALSE;
 
     -- Transition Relations
-    next(a) := !a;
-    next(b) := !b;
+    next(a) := a;

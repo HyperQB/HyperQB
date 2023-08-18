@@ -69,6 +69,11 @@ MODULE main
 			esac;
 
 
+			-- ((MAX_ticket==0) -> (MAX_ticket'==1)) /\
+			-- ((MAX_ticket==1) -> (MAX_ticket'==2)) /\
+			-- ((MAX_ticket==2) -> (MAX_ticket'==3))
+
+
 		next(p3_line) :=
 			case
 				(p3_line=0) : {0};  -- stay, or proceed

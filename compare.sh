@@ -15,8 +15,9 @@ GENQBF=src/expression/bin/genqbf # classic 1 quants
 
 
 
-AUTOHYPER='/Users/tzuhan/install/autohyper/app/AutoHyper'
+AUTOHYPER='/Users/tzuhan/install/test_autohyper/autohyper/app/AutoHyper'
 
+# time ${AUTOHYPER} --nusmv /Users/tzuhan/+research/HyperQB/cases_compare/ex.smv /Users/tzuhan/+research/HyperQB/cases_compare/ex.hq
 # case 1:
 # SMV='cases_compare/NI_v1.smv'
 # HQ='cases_compare/NI_f1.hq'
@@ -24,17 +25,17 @@ AUTOHYPER='/Users/tzuhan/install/autohyper/app/AutoHyper'
 # time ./hyperqb.sh ${SMV} ${SMV} ${HQ} 3 -pes -find
 # echo ""
 # echo "------(AutoHyper Starts)------"
-# time ${AUTOHYPER} -nusmv ${SMV} ${HQAUTO} -v 4
+# time ${AUTOHYPER} --nusmv ${SMV} ${HQAUTO} -v 4
 
 
-# case 2: input non-determinism (overhead: inclusion check)
+# # case 2: input non-determinism (overhead: inclusion check)
 # SMV='cases_compare/NI_v2.smv'
 # HQ='cases_compare/NI_f1.hq'
 # HQAUTO='cases_compare/NI_f2.hq'
 # time ./hyperqb.sh ${SMV} ${SMV} ${HQ} 3 -pes -find
 # echo ""
 # echo "------(AutoHyper Starts)------"
-# time ${AUTOHYPER} -nusmv ${SMV} ${HQAUTO} -v 4
+# time ${AUTOHYPER} --nusmv ${SMV} ${HQAUTO} --debug
 
 
 # case 3: transition non-determinism (overhead: inclusion check)
@@ -44,7 +45,7 @@ AUTOHYPER='/Users/tzuhan/install/autohyper/app/AutoHyper'
 # time ./hyperqb.sh ${SMV} ${SMV} ${HQ} 4 -pes -find
 # echo ""
 # echo "------(AutoHyper Starts)------"
-# time ${AUTOHYPER} -nusmv ${SMV} ${HQAUTO} -v 4
+# time ${AUTOHYPER} --nusmv ${SMV} ${HQAUTO} -v 4
 
 
 # Adversarial Planning 3x3:
@@ -54,7 +55,7 @@ AUTOHYPER='/Users/tzuhan/install/autohyper/app/AutoHyper'
 # time ./hyperqb.sh ${SMV} ${SMV} ${HQ} 5 -pes -find
 # echo ""
 # echo "------(AutoHyper Starts)------"
-# time ${AUTOHYPER} -nusmv ${SMV} ${HQAUTO} -v 4
+# time ${AUTOHYPER} --nusmv ${SMV} ${HQAUTO} -v 4
 
 
 # Adversarial Planning 4x4 (overhead: inclusion checking)
@@ -64,7 +65,7 @@ AUTOHYPER='/Users/tzuhan/install/autohyper/app/AutoHyper'
 # time ./hyperqb.sh ${SMV} ${SMV} ${HQ} 5 -pes -find
 # echo ""
 # echo "------(AutoHyper Starts)------"
-# time ${AUTOHYPER} -nusmv ${SMV} ${HQAUTO} -v 4
+# time ${AUTOHYPER} --nusmv ${SMV} ${HQAUTO} -v 4
 
 
 # Deniability small: (overhead: on product construction)
@@ -74,7 +75,7 @@ AUTOHYPER='/Users/tzuhan/install/autohyper/app/AutoHyper'
 # time ./hyperqb.sh ${SMV} ${SMV} ${SMV} ${HQ} 7 -pes -find
 # echo ""
 # echo "------(AutoHyper Starts)------"
-# time ${AUTOHYPER} -nusmv ${SMV} ${HQAUTO} -v 4
+# time ${AUTOHYPER} --nusmv ${SMV} ${HQAUTO} --debug
 
 # Deniability:
 # SMV='cases_compare/den.smv'
@@ -83,28 +84,38 @@ AUTOHYPER='/Users/tzuhan/install/autohyper/app/AutoHyper'
 # time ./hyperqb.sh ${SMV} ${SMV} ${SMV} ${HQ} 7 -pes -find
 # echo ""
 # echo "------(AutoHyper Starts)------"
-# time ${AUTOHYPER} -nusmv ${SMV} ${HQAUTO} -v 4
+# time ${AUTOHYPER} --nusmv ${SMV} ${HQAUTO} --debug
 
 # Mappying Synthesis - examples
-SMV_A='cases_compare/msynth_MA.smv'
-SMV_B='cases_compare/msynth_MB.smv'
-SMV_M='cases_compare/msynth_MM.smv'
-HQ='cases_compare/msynth_f1.hq'
-HQAUTO='cases_compare/msynth_f2.hq'
-time ./hyperqb.sh ${SMV_M} ${SMV_A} ${SMV_B} ${SMV_A} ${SMV_B} ${HQ} 5 -pes -find
-echo ""
-echo "------(AutoHyper Starts)------"
-time ${AUTOHYPER} -nusmv ${SMV_M} ${SMV_A} ${SMV_B} ${SMV_A} ${SMV_B}  ${HQAUTO} -v 4
+# SMV_A='cases_compare/msynth_MA.smv'
+# SMV_B='cases_compare/msynth_MB.smv'
+# SMV_M='cases_compare/msynth_MM.smv'
+# HQ='cases_compare/msynth_f1.hq'
+# HQAUTO='cases_compare/msynth_f2.hq'
+# time ./hyperqb.sh ${SMV_M} ${SMV_A} ${SMV_B} ${SMV_A} ${SMV_B} ${HQ} 5 -pes -find
+# echo ""
+# echo "------(AutoHyper Starts)------"
+# time ${AUTOHYPER} --nusmv ${SMV_M} ${SMV_A} ${SMV_B} ${SMV_A} ${SMV_B}  ${HQAUTO} -v 4
 
 
 # Mappying Synthesis - Alice and Bob with non-interference
-SMV_A='cases_compare/msynth1_MA.smv'
-SMV_B='cases_compare/msynth1_MB.smv'
-SMV_M='cases_compare/msynth1_MM.smv'
-HQ='cases_compare/msynth1_f1.hq'
-HQAUTO='cases_compare/msynth1_f2.hq'
+# SMV_A='cases_compare/msynth2_MA.smv'
+# SMV_B='cases_compare/msynth2_MB.smv'
+# SMV_M='cases_compare/msynth2_MM.smv'
+# HQ='cases_compare/msynth2_f1.hq'
+# HQAUTO='cases_compare/msynth2_f2.hq'
+# # echo "HyperQB total time: "
+# time ./hyperqb.sh ${SMV_M} ${SMV_A} ${SMV_B} ${SMV_A} ${SMV_B} ${HQ} 8 -pes -find
+# echo ""
+# echo "------(AutoHyper Starts)------"
+# time ${AUTOHYPER} --nusmv ${SMV_M} ${SMV_A} ${SMV_B} ${SMV_A} ${SMV_B}  ${HQAUTO} --debug
+
+
+SMV='cases_compare/team.smv'
+HQ='cases_compare/team_f1.hq'
+HQAUTO='cases_compare/team_f2.hq'
 # echo "HyperQB total time: "
-time ./hyperqb.sh ${SMV_M} ${SMV_A} ${SMV_B} ${SMV_A} ${SMV_B} ${HQ} 8 -pes -find
+time ./hyperqb.sh ${SMV} ${SMV} ${SMV} ${HQ} 8 -pes -find
 echo ""
 echo "------(AutoHyper Starts)------"
-time ${AUTOHYPER} -nusmv ${SMV_M} ${SMV_A} ${SMV_B} ${SMV_A} ${SMV_B}  ${HQAUTO} -v 4
+time ${AUTOHYPER} --nusmv ${SMV} ${HQAUTO} --debug
